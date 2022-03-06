@@ -4,6 +4,10 @@ from PIL import Image
 import requests
 
 
+location_list = [39, 38, 48, 49, 41, 40, 46, 47, 35, 34, 50, 51, 33, 32, 28, 29, 27, 26, 36, 37, 31, 30, 44, 45, 43,
+                 42, 12, 13, 23, 22, 14, 15, 21, 20, 8, 9, 25, 24, 6, 7, 3, 2, 0, 1, 11, 10, 4, 5, 19, 18, 16, 17]
+
+
 def crop_image(img: Image, x, y, width, height):
     return img.crop((x, int(y), int(x + width), int(y + height)))
 
@@ -13,16 +17,14 @@ def paste_image(new_img: Image, img: Image, x, y, width, height):
 
 
 def restore_image(img: Image):
-    img_list = [39, 38, 48, 49, 41, 40, 46, 47, 35, 34, 50, 51, 33, 32, 28, 29, 27, 26, 36, 37, 31, 30, 44, 45, 43,
-                42, 12, 13, 23, 22, 14, 15, 21, 20, 8, 9, 25, 24, 6, 7, 3, 2, 0, 1, 11, 10, 4, 5, 19, 18, 16, 17]
-    r = 312
+    r = 260
     n = 160
     s = n / 2
     u = 10
     new_img = Image.new("RGBA", (r, n))
     for c in range(52):
-        f = img_list[c] % 26 * 12 + 1
-        _ = s if img_list[c] > 25 else 0
+        f = location_list[c] % 26 * 12 + 1
+        _ = s if location_list[c] > 25 else 0
         crop_img = crop_image(img, f, _, u, s)
         paste_image(new_img, crop_img, c % 26 * 10, s if c > 25 else 0, u, s)
     return new_img
