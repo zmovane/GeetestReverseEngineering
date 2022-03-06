@@ -2,4 +2,8 @@ function now() {
   return new Date().getTime();
 }
 
-module.exports = { now };
+function delay(ms) {
+  return new Promise((cb) => setTimeout(cb, ms));
+}
+
+module.exports = { now, delay };
