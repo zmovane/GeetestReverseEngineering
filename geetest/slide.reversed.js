@@ -1,4 +1,4 @@
-const { $_BDg, X } = require("./encrypt");
+const { $_BDg, X, j } = require("./encrypt");
 
 function GCG(t, e) {
   return (t >> e) & 1;
@@ -167,8 +167,30 @@ function getEP() {
     v: "7.8.6",
     $_BHR: false, // 是否 touchEvent
     me: true, // 是否 mouseEvent
-    tm: true, // window.performance.timing
     td: -1,
+    tm: {
+      a: 1646579282840,
+      b: 0,
+      c: 0,
+      d: 0,
+      e: 0,
+      f: 1646579282851,
+      g: 1646579282851,
+      h: 1646579282851,
+      i: 1646579282851,
+      j: 1646579282851,
+      k: 0,
+      l: 1646579282852,
+      m: 1646579282853,
+      n: 1646579282853,
+      o: 1646579283231,
+      p: 1646579283342,
+      q: 1646579283342,
+      r: 1646579283344,
+      s: 1646579283773,
+      t: 1646579283773,
+      u: 1646579283774,
+    },
   };
 }
 
@@ -180,6 +202,7 @@ function $_CCFP(s) {
 
 /**
  *
+ * @param {*} gt
  * @param {*} challenge
  * @param {*} seed
  * @param {*} offset    滑动位移
@@ -190,7 +213,7 @@ function $_CCFP(s) {
  * @param {*} s         请求 get.php 获得
  * @returns
  */
-function w(challenge, seed, offset, track, passtime, imgload, c, s) {
+function w(gt, challenge, seed, offset, track, passtime, imgload, c, s) {
   var o = {
     lang: "zh-cn",
     userresponse: getUserResponse(offset, challenge),
@@ -198,10 +221,12 @@ function w(challenge, seed, offset, track, passtime, imgload, c, s) {
     imgload: imgload,
     aa: getAA(getEncryptTrack(track), c, s),
     ep: getEP(),
+    rp: j(`${gt}${challenge.slice(0, 32)}${passtime}`),
+    wtlr: "1720932411",
   };
 
   var u = $_CCFP(seed);
-  var l = new $_BDg().encrypt1(JSON.stringify(o), seed);
+  var l = new $_BDg().encrypt(JSON.stringify(o), seed);
   var h = $_GFM(l);
   return h + u;
 }
