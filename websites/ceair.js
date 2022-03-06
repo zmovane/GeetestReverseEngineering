@@ -144,12 +144,8 @@ function getTrack(offset) {
     tracks = require("../tracks.json");
   }
   for (const track of tracks) {
-    let index = 0;
-    for (const [x, y, t] of track) {
-      if ([offset - 1, offset, offset + 1].includes(x)) {
-        return track.slice(0, index + 1);
-      }
-      index++;
+    if (track[track.length - 1][0] === offset) {
+      return track;
     }
   }
 }
