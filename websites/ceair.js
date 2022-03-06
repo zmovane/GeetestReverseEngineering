@@ -191,10 +191,10 @@ requestCaptcha()
     return (async function () {
       const offset = await calculateOffset(bg, fullbg);
       const track = getTrack(offset);
-      const imgload = parseInt(Math.random(100, 300));
+      const imgload = parseInt(Math.random() * 20 + 50);
       const passtime = track[track.length - 1][2];
-      await delay(imgload);
       const gctPayload = await execGctjs(gctpath);
+      await delay(passtime);
       return {
         gt,
         challenge,

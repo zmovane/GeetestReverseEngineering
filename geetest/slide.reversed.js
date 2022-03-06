@@ -1,4 +1,5 @@
 const { $_BDg, X, j } = require("./encrypt");
+const { timing } = require("./timing");
 
 function GCG(t, e) {
   return (t >> e) & 1;
@@ -168,29 +169,7 @@ function getEP() {
     $_BHR: false, // 是否 touchEvent
     me: true, // 是否 mouseEvent
     td: -1,
-    tm: {
-      a: 1646579282840,
-      b: 0,
-      c: 0,
-      d: 0,
-      e: 0,
-      f: 1646579282851,
-      g: 1646579282851,
-      h: 1646579282851,
-      i: 1646579282851,
-      j: 1646579282851,
-      k: 0,
-      l: 1646579282852,
-      m: 1646579282853,
-      n: 1646579282853,
-      o: 1646579283231,
-      p: 1646579283342,
-      q: 1646579283342,
-      r: 1646579283344,
-      s: 1646579283773,
-      t: 1646579283773,
-      u: 1646579283774,
-    },
+    tm: timing(),
   };
 }
 
@@ -234,6 +213,7 @@ function w(
     ep: getEP(),
     rp: j(`${gt}${challenge.slice(0, 32)}${passtime}`),
   };
+  console.log({ ...o, ...gctPayload })
   var u = $_CCFP(seed);
   var l = new $_BDg().encrypt(JSON.stringify({ ...o, ...gctPayload }), seed);
   var h = $_GFM(l);
