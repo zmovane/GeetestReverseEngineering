@@ -131,8 +131,72 @@ FAwFx.$_AU = (function () {
   }
 })();
 
-async function convert(filepath, convertFn) {
-  const varPattern = /\$_[a-zA-Z]{3,5}\((\d+)\)/g;
+ArXuv.Bak = (function () {
+  var roI = 2;
+  for (; roI !== 1; ) {
+    switch (roI) {
+      case 2:
+        return {
+          sfR: (function (tRQ) {
+            var ukI = 2;
+            for (; ukI !== 14; ) {
+              switch (ukI) {
+                case 5:
+                  ukI = ve_ < wMo.length ? 4 : 7;
+                  break;
+                case 2:
+                  var xhi = "",
+                    wMo = decodeURI(
+                      "%0C%03%12%02%10#%16%0B%1F(%05-&%3C%048&%036+%1F(%0B9=%011%02%1B%14&7.%14%08/%1B%18a9%00%20%1D%0F5+%3C?%16%08$%10%0B$%1D%08%1F(%12%25%0B%055%1F%0D$&2l(Og&%034%02%11#%1C%09%1F%19%00%20%1D%0F5(%04%0C%11%1A%1F(%0A/%1F%16%1F(%3C/%082%1F%05%16/%082%25.%15)&2,%1F%06.%14%09%1F(%3C%14%20%1873%3C)%0A%09%20%02%07%14%0B%1C-%1F%16%14&%08$%07%17/%0D%09%1F%02%0A/%162%15%1E%0B9X%0E3%19%159%1D%1Ef%05B#%15%1C-%13%0F/%16%18%20%02%0B%25%16L.%10B%05%1A%06$%15%16d%1B%1E$%17%16/X%052V%03j%0B%04(%1BB+%16%08a%12%0D/%0B%02f%02B9%0D%1C1%19%10%3EXK/%03%0E&_L%20%05B%3E%10%09a%10%0B8%0B%18a%17%10-%0D%01$%18%16d&%0D%19%14%18%14%0A%0D/%12%0D'&%063)3%14%11%0B1%10%3C%14*)%0B3!%1E=(%1F%20,%1E%002%1F%04%03)%1D2%1F$'%197%20%173&%14%1C%09#%03%05%14%08%1E.%02%0D%3E%01%1C$(=-%1B%18%1F(5%09%13$%1F%07%17/%0D%09a%1F%11j%1D%011%02%1B%14%19%01%25(%3C&%19%1F5%20%03&&%0F8%15%09%14%0F%18-%04%3C$%1D%145(%07&%1D2%1F%1A2&92$%191+&%0D%25%12%0B%3E%11%03/(%3C!%0D%0D%0A(%00%09%0B%1B%1F(%3C%14%1F%3E1%3C%3C,%0D%02%22%02%0B%25%162-%13%0C-%0C%04%1F(%07$%09%19$%03%07%14&2%0E%14%08/%1B%18a%06%10%25%0C%035%0F%12/X%01%20%0FB%25%16%008V%00/X%0D/V-(%12%09%22%02Xj&%0D-%1A%3C#%16%02$%04%3C%13%17?%1E(%3C/%0A%1E.%04%3C/%00%1C.%04%169&2%1F%1A%03$%1F2%06%13%07%3E%1D%1F5(8%04%13%1A%1F(%01%22%19%1E%02%19%06/9%18%1F%15%0E/%19%1E%1F(%13?%1D%1E8(%0F?%14%18(%06%0E#%1B%0D5%1F%0D$&8)%1F%11j%1A%1E.%01%11/%0AK2V%0B'%08%00$%1B%07$%0C%0D5%1F%0D$X%03'V-(%12%09%22%02L)%0A%09%20%02%07j%11%1Fa%17B9%10%05,V%03$%1CL%25%19%079%16K5V%11?%08%1C.%04%16j%19L2%13%01%25%16%08a%17%10-%0D%01$%18%16d&2$%17%01%22&%0F%20%1A%0E"
+                    );
+                  ukI = 1;
+                  break;
+                case 1:
+                  var ve_ = 0,
+                    yiO = 0;
+                  ukI = 5;
+                  break;
+                case 4:
+                  ukI = yiO === tRQ.length ? 3 : 9;
+                  break;
+                case 8:
+                  ve_++, yiO++;
+                  ukI = 5;
+                  break;
+                case 3:
+                  yiO = 0;
+                  ukI = 9;
+                  break;
+                case 9:
+                  xhi += String.fromCharCode(
+                    wMo.charCodeAt(ve_) ^ tRQ.charCodeAt(yiO)
+                  );
+                  ukI = 8;
+                  break;
+                case 7:
+                  xhi = xhi.split("^");
+                  return function (Avx) {
+                    var BDw = 2;
+                    for (; BDw !== 1; ) {
+                      switch (BDw) {
+                        case 2:
+                          return xhi[Avx];
+                          break;
+                      }
+                    }
+                  };
+                  break;
+              }
+            }
+          })("xlAvbJ"),
+        };
+        break;
+    }
+  }
+})();
+function ArXuv() {}
+
+async function convert(varPattern, filepath, convertFn) {
   const lines = [];
   const fileStream = fs.createReadStream(filepath);
   const rl = readline.createInterface({
@@ -152,5 +216,10 @@ async function convert(filepath, convertFn) {
   fs.writeFileSync(`${filepath.replace(".js", ".converted.js")}`, content);
 }
 
-convert("geetest/fullpage.js", FAwFx.$_AU.$_DEHDy);
-convert("geetest/slide.js", lTloj.$_AG.$_DBHFa);
+const fullpagejsVariantsPattern = /\$_[a-zA-Z]{3,5}_?\((\d+)\)/g;
+const slidejsVariantsPattern = /\$_[a-zA-Z]{3,5}_?\((\d+)\)/g;
+const gctjsVariantsPatten = /[a-zA-Z]{3,5}_?\((\d+)\)/g;
+
+convert(fullpagejsVariantsPattern, "geetest/fullpage.js", FAwFx.$_AU.$_DEHDy);
+convert(slidejsVariantsPattern, "geetest/slide.js", lTloj.$_AG.$_DBHFa);
+convert(gctjsVariantsPatten, "geetest/gct.js", ArXuv.Bak.sfR);
