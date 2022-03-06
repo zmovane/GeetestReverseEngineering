@@ -1,6 +1,6 @@
 const { request } = require("../util/http");
 const { now, delay } = require("../util/time");
-const { w: slideW } = require("../geetest/slide.reversed");
+const { w: slideW, getEP } = require("../geetest/slide.reversed");
 const { w: fullpageW } = require("../geetest/fullpage.reversed");
 const { w2: fullpageW2 } = require("../geetest/fullpage.reversed2");
 const { seed: generateSeed } = require("../geetest/seed");
@@ -72,12 +72,13 @@ async function requestGetPHP(step = STEP.ONE, { gt, challenge }) {
     s: json.s,
     fullbg: staticURL + json.fullbg,
     bg: staticURL + json.bg,
+    gctpath: staticURL + json.gct_path,
   };
 }
 
 async function requestAjaxPHP(
   step = STEP.ONE,
-  { gt, challenge, offset, track, passtime, imgload, c, s }
+  { gt, challenge, offset, track, passtime, imgload, c, s, gctPayload }
 ) {
   const payload =
     step === STEP.ONE
@@ -97,6 +98,7 @@ async function requestAjaxPHP(
           $_BBF: 0,
           client_type: "web",
           w: slideW(
+            gt,
             challenge,
             generateSeed(),
             offset,
@@ -104,7 +106,8 @@ async function requestAjaxPHP(
             passtime,
             imgload,
             c,
-            s
+            s,
+            gctPayload
           ),
           callback: `geetest_${now()}`,
         };
@@ -135,11 +138,6 @@ async function calculateOffset(bg, fullbg) {
   );
 }
 
-const STEP = {
-  ONE: Symbol(),
-  TWO: Symbol(),
-};
-
 let tracks;
 function getTrack(offset) {
   if (!tracks) {
@@ -148,13 +146,36 @@ function getTrack(offset) {
   for (const track of tracks) {
     let index = 0;
     for (const [x, y, t] of track) {
-      if (offset - 1 < x && x < offset + 1) {
-        return track.slice(0, offset);
+      if ([offset - 1, offset, offset + 1].includes(x)) {
+        return track.slice(0, index + 1);
       }
       index++;
     }
   }
 }
+
+async function execGctjs(gctpath) {
+  const response = await request("GET", gctpath, {}, header);
+  const js = response.data;
+  const pattern = /return\s(function\(t\)\{[\s\S]*?\});/g;
+  const gctFn = js.match(pattern)[0];
+  const payload = { lang: "zh-cn", ep: getEP() };
+  const newjs =
+    "window={};" +
+    js.replace(
+      pattern,
+      `window._gct=${gctFn.replace(/^return/, "")};\n${gctFn}`
+    ) +
+    `function execGct(ep){window._gct(ep);return ep;}; execGct(${JSON.stringify(
+      payload
+    )})`;
+  return eval(newjs);
+}
+
+const STEP = {
+  ONE: Symbol(),
+  TWO: Symbol(),
+};
 
 requestCaptcha()
   .then(({ gt, challenge }) => {
@@ -166,14 +187,25 @@ requestCaptcha()
   .then(({ gt, challenge }) => {
     return requestGetPHP(STEP.TWO, { gt, challenge });
   })
-  .then(({ gt, challenge, c, s, bg, fullbg }) => {
+  .then(({ gt, challenge, c, s, bg, fullbg, gctpath }) => {
     return (async function () {
       const offset = await calculateOffset(bg, fullbg);
       const track = getTrack(offset);
       const imgload = parseInt(Math.random(100, 300));
       const passtime = track[track.length - 1][2];
       await delay(imgload);
-      return { gt, challenge, offset, track, passtime, imgload, c, s };
+      const gctPayload = await execGctjs(gctpath);
+      return {
+        gt,
+        challenge,
+        offset,
+        track,
+        passtime,
+        imgload,
+        c,
+        s,
+        gctPayload,
+      };
     })();
   })
   .then((data) => {

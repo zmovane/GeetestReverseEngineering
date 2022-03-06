@@ -213,7 +213,18 @@ function $_CCFP(s) {
  * @param {*} s         请求 get.php 获得
  * @returns
  */
-function w(gt, challenge, seed, offset, track, passtime, imgload, c, s) {
+function w(
+  gt,
+  challenge,
+  seed,
+  offset,
+  track,
+  passtime,
+  imgload,
+  c,
+  s,
+  gctPayload
+) {
   var o = {
     lang: "zh-cn",
     userresponse: getUserResponse(offset, challenge),
@@ -222,13 +233,11 @@ function w(gt, challenge, seed, offset, track, passtime, imgload, c, s) {
     aa: getAA(getEncryptTrack(track), c, s),
     ep: getEP(),
     rp: j(`${gt}${challenge.slice(0, 32)}${passtime}`),
-    wtlr: "1720932411",
   };
-
   var u = $_CCFP(seed);
-  var l = new $_BDg().encrypt(JSON.stringify(o), seed);
+  var l = new $_BDg().encrypt(JSON.stringify({ ...o, ...gctPayload }), seed);
   var h = $_GFM(l);
   return h + u;
 }
 
-module.exports = { w };
+module.exports = { w, getEP };
