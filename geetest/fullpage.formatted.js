@@ -351,11 +351,6 @@ function FAwFx() {}
               i = (t["enc"] = {}),
               u = (i["Latin1"] = {
                 parse: function (e) {
-                  var $_DHAH = FAwFx.$_CQ,
-                    $_DGJU = ["$_DHDY"].concat($_DHAH),
-                    $_DHBX = $_DGJU[1];
-                  $_DGJU.shift();
-                  var $_DHCD = $_DGJU[0];
                   for (var t = e["length"], n = [], r = 0; r < t; r++)
                     n[r >>> 2] |=
                       (255 & e["charCodeAt"](r)) << (24 - (r % 4) * 8);
@@ -498,11 +493,6 @@ function FAwFx() {}
                       return s;
                     },
                     encrypt1: function (e, t, n) {
-                      var $_EDAe = FAwFx.$_CQ,
-                        $_ECJK = ["$_EDDI"].concat($_EDAe),
-                        $_EDBE = $_ECJK[1];
-                      $_ECJK.shift();
-                      var $_EDCe = $_ECJK[0];
                       (t = u["parse"](t)),
                         (n && n["iv"]) ||
                           ((n = n || {})["iv"] =
@@ -2389,12 +2379,7 @@ function FAwFx() {}
           return t;
         },
         $_GGr: function (e) {
-          var $_JAAW = FAwFx.$_CQ,
-            $_IJJJ = ["$_JADz"].concat($_JAAW),
-            $_JABs = $_IJJJ[1];
-          $_IJJJ.shift();
-          var $_JACH = $_IJJJ[0];
-          var t = this["$_FHp"];
+          var t = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()';
           return e < 0 || e >= t["length"] ? "." : t["charAt"](e);
         },
         $_GHZ: function (e) {
@@ -2414,22 +2399,12 @@ function FAwFx() {}
           return (e >> t) & 1;
         },
         $_GJq: function (e, o) {
-          var $_JBFP = FAwFx.$_CQ,
-            $_JBEn = ["$_JBIO"].concat($_JBFP),
-            $_JBGO = $_JBEn[1];
-          $_JBEn.shift();
-          var $_JBHK = $_JBEn[0];
           var i = this;
           o || (o = i);
           for (
             var t = function (e, t) {
-                var $_JCAe = FAwFx.$_CQ,
-                  $_JBJG = ["$_JCDy"].concat($_JCAe),
-                  $_JCBC = $_JBJG[1];
-                $_JBJG.shift();
-                var $_JCCo = $_JBJG[0];
-                for (var n = 0, r = o["$_GDj"] - 1; 0 <= r; r -= 1)
-                  1 === i["$_GIs"](t, r) && (n = (n << 1) + i["$_GIs"](e, r));
+                for (var n = 0, r = 23; 0 <= r; r -= 1)
+                  1 === ((t >> r)  & 1)&& (n = (n << 1) + ((e >> r) & 1));
                 return n;
               },
               n = "",
@@ -2443,25 +2418,25 @@ function FAwFx() {}
             if (a + 2 < s)
               (c = (e[a] << 16) + (e[a + 1] << 8) + e[a + 2]),
                 (n +=
-                  i["$_GGr"](t(c, o["$_FJm"])) +
-                  i["$_GGr"](t(c, o["$_GAV"])) +
-                  i["$_GGr"](t(c, o["$_GBW"])) +
-                  i["$_GGr"](t(c, o["$_GCY"])));
+                  i["$_GGr"](t(c, 7274496)) +
+                  i["$_GGr"](t(c, 9483264)) +
+                  i["$_GGr"](t(c, 19220)) +
+                  i["$_GGr"](t(c, 235)));
             else {
               var _ = s % 3;
               2 == _
                 ? ((c = (e[a] << 16) + (e[a + 1] << 8)),
                   (n +=
-                    i["$_GGr"](t(c, o["$_FJm"])) +
-                    i["$_GGr"](t(c, o["$_GAV"])) +
-                    i["$_GGr"](t(c, o["$_GBW"]))),
-                  (r = o["$_FIg"]))
+                    i["$_GGr"](t(c, 7274496)) +
+                    i["$_GGr"](t(c, 9483264)) +
+                    i["$_GGr"](t(c, 19220))),
+                  (r = "."))
                 : 1 == _ &&
                   ((c = e[a] << 16),
                   (n +=
-                    i["$_GGr"](t(c, o["$_FJm"])) +
-                    i["$_GGr"](t(c, o["$_GAV"]))),
-                  (r = o["$_FIg"] + o["$_FIg"]));
+                    i["$_GGr"](t(c, 7274496)) +
+                    i["$_GGr"](t(c, 9483264))),
+                  (r = "." + "."));
             }
           }
           return {
@@ -2515,19 +2490,19 @@ function FAwFx() {}
             o += 4
           ) {
             var a =
-                t(s["$_GHZ"](e["charAt"](o)), i["$_FJm"]) +
-                t(s["$_GHZ"](e["charAt"](o + 1)), i["$_GAV"]) +
-                t(s["$_GHZ"](e["charAt"](o + 2)), i["$_GBW"]) +
-                t(s["$_GHZ"](e["charAt"](o + 3)), i["$_GCY"]),
+                t(s["$_GHZ"](e["charAt"](o)), 7274496) +
+                t(s["$_GHZ"](e["charAt"](o + 1)), 9483264) +
+                t(s["$_GHZ"](e["charAt"](o + 2)), 19220) +
+                t(s["$_GHZ"](e["charAt"](o + 3)), 235),
               c = (a >> 16) & 255;
             if (
               ((r += String["fromCharCode"](c)),
-              e["charAt"](o + 2) !== i["$_FIg"])
+              e["charAt"](o + 2) !== ".")
             ) {
               var _ = (a >> 8) & 255;
               if (
                 ((r += String["fromCharCode"](_)),
-                e["charAt"](o + 3) !== i["$_FIg"])
+                e["charAt"](o + 3) !== ".")
               ) {
                 var l = 255 & a;
                 r += String["fromCharCode"](l);
@@ -5194,11 +5169,6 @@ function FAwFx() {}
         return new ee(this["$_BABs"]["concat"](e));
       },
       $_BGx: function (e) {
-        var $_BFFAJ = FAwFx.$_CQ,
-          $_BFEJv = ["$_BFFDK"].concat($_BFFAJ),
-          $_BFFBN = $_BFEJv[1];
-        $_BFEJv.shift();
-        var $_BFFCp = $_BFEJv[0];
         var t = this["$_BABs"];
         if (t["map"]) return new ee(t["map"](e));
         for (var n = [], r = 0, o = t["length"]; r < o; r += 1)
@@ -8012,7 +7982,7 @@ function FAwFx() {}
                 $_CDCGE = $_CDCEr[1];
               $_CDCEr.shift();
               var $_CDCHQ = $_CDCEr[0];
-              return this[$_CDCF_(700)](this["$_CCl"]);
+              return this["$_HAl"](this["$_CCl"]);
             },
           }),
           mouseEvent: !1,
@@ -8199,19 +8169,10 @@ function FAwFx() {}
         $_BICD: 1,
         $_BIDM: 0,
         $_BIEj: function (e) {
-          var $_CDIAp = FAwFx.$_CQ,
-            $_CDHJU = ["$_CDIDp"].concat($_CDIAp),
-            $_CDIBj = $_CDHJU[1];
-          $_CDHJU.shift();
-          var $_CDICN = $_CDHJU[0];
-          return e ? this["$_BICD"] : this["$_BIDM"];
+        
+          return e ? 1: 0;
         },
         $_BIFS: function (e) {
-          var $_CDIFP = FAwFx.$_CQ,
-            $_CDIEC = ["$_CDIIJ"].concat($_CDIFP),
-            $_CDIGu = $_CDIEC[1];
-          $_CDIEC.shift();
-          var $_CDIHI = $_CDIEC[0];
           return void 0 === e;
         },
         $_BIGk: [
@@ -8244,63 +8205,91 @@ function FAwFx() {}
         ],
         $_BIHf: ["DIV", "P", "UL", "LI", "SCRIPT"],
         $_BIIC: function () {
-          var $_CDJAn = FAwFx.$_CQ,
-            $_CDIJr = ["$_CDJDY"].concat($_CDJAn),
-            $_CDJBW = $_CDIJr[1];
-          $_CDIJr.shift();
-          var $_CDJCU = $_CDIJr[0];
-          return ["textLength", "HTMLLength", "documentMode"]
-            ["concat"](this["$_BIGk"])
-            ["concat"]([
-              "screenLeft",
-              "screenTop",
-              "screenAvailLeft",
-              "screenAvailTop",
-              "innerWidth",
-              "innerHeight",
-              "outerWidth",
-              "outerHeight",
-              "browserLanguage",
-              "browserLanguages",
-              "systemLanguage",
-              "devicePixelRatio",
-              "colorDepth",
-              "userAgent",
-              "cookieEnabled",
-              "netEnabled",
-              "screenWidth",
-              "screenHeight",
-              "screenAvailWidth",
-              "screenAvailHeight",
-              "localStorageEnabled",
-              "sessionStorageEnabled",
-              "indexedDBEnabled",
-              "CPUClass",
-              "platform",
-              "doNotTrack",
-              "timezone",
-              "canvas2DFP",
-              "canvas3DFP",
-              "plugins",
-              "maxTouchPoints",
-              "flashEnabled",
-              "javaEnabled",
-              "hardwareConcurrency",
-              "jsFonts",
-              "timestamp",
-              "performanceTiming",
-              "internalip",
-              "mediaDevices",
-            ])
-            ["concat"](this["$_BIHf"])
-            ["concat"](["deviceorientation", "touchEvent"]);
+          return [
+            "textLength",
+            "HTMLLength",
+            "documentMode",
+            "A",
+            "ARTICLE",
+            "ASIDE",
+            "AUDIO",
+            "BASE",
+            "BUTTON",
+            "CANVAS",
+            "CODE",
+            "IFRAME",
+            "IMG",
+            "INPUT",
+            "LABEL",
+            "LINK",
+            "NAV",
+            "OBJECT",
+            "OL",
+            "PICTURE",
+            "PRE",
+            "SECTION",
+            "SELECT",
+            "SOURCE",
+            "SPAN",
+            "STYLE",
+            "TABLE",
+            "TEXTAREA",
+            "VIDEO",
+            "screenLeft",
+            "screenTop",
+            "screenAvailLeft",
+            "screenAvailTop",
+            "innerWidth",
+            "innerHeight",
+            "outerWidth",
+            "outerHeight",
+            "browserLanguage",
+            "browserLanguages",
+            "systemLanguage",
+            "devicePixelRatio",
+            "colorDepth",
+            "userAgent",
+            "cookieEnabled",
+            "netEnabled",
+            "screenWidth",
+            "screenHeight",
+            "screenAvailWidth",
+            "screenAvailHeight",
+            "localStorageEnabled",
+            "sessionStorageEnabled",
+            "indexedDBEnabled",
+            "CPUClass",
+            "platform",
+            "doNotTrack",
+            "timezone",
+            "canvas2DFP",
+            "canvas3DFP",
+            "plugins",
+            "maxTouchPoints",
+            "flashEnabled",
+            "javaEnabled",
+            "hardwareConcurrency",
+            "jsFonts",
+            "timestamp",
+            "performanceTiming",
+            "internalip",
+            "mediaDevices",
+            "DIV",
+            "P",
+            "UL",
+            "LI",
+            "SCRIPT",
+            "deviceorientation",
+            "touchEvent",
+          ];
         },
+        // breakpoint: $_BIAy
         $_BIAy: function () {
-          var $_CDJFF = FAwFx.$_CQ,
-            $_CDJEv = ["$_CDJI_"].concat($_CDJFF),
-            $_CDJGg = $_CDJEv[1];
-          $_CDJEv.shift();
-          var $_CDJHu = $_CDJEv[0];
+        //   var $_CDJFF = FAwFx.$_CQ,
+        //     $_CDJEv = ["$_CDJI_"].concat($_CDJFF),
+        //     $_CDJGg = $_CDJEv[1];
+        //   $_CDJEv.shift();
+        //   var $_CDJHu = $_CDJEv[0];
           function s(e) {
             var $_DEGAG = FAwFx.$_Dv()[4][10];
             for (; $_DEGAG !== FAwFx.$_Dv()[2][9]; ) {
@@ -9131,12 +9120,8 @@ function FAwFx() {}
             o["join"]("magic data")
           );
         },
+        // breakpoint: $_BHDt
         $_BHDt: function () {
-          var $_CEFAI = FAwFx.$_CQ,
-            $_CEEJJ = ["$_CEFDC"].concat($_CEFAI),
-            $_CEFBq = $_CEEJJ[1];
-          $_CEEJJ.shift();
-          var $_CEFCe = $_CEEJJ[0];
           var n = this,
             r = n["$_CCl"];
           (r["timestamp"] = new Date()["getTime"]()),
@@ -9147,13 +9132,8 @@ function FAwFx() {}
           var o = [];
           return (
             new ee(n["$_BIIC"]())["$_BGx"](function (e) {
-              var $_CEFFc = FAwFx.$_CQ,
-                $_CEFEb = ["$_CEFIt"].concat($_CEFFc),
-                $_CEFGh = $_CEFEb[1];
-              $_CEFEb.shift();
-              var $_CEFHY = $_CEFEb[0];
               var t = r[e];
-              o["push"](n["$_BIFS"](t) ? n["$_BIBS"] : t);
+              o["push"](typeof t === "undefined" ? -1 : t);
             }),
             o["join"]("!!")
           );
@@ -9790,6 +9770,7 @@ function FAwFx() {}
             a && !s["pure"] && r["$_CCCL"](), r["$_CCDD"]();
           else if (o["$_JIs"]($e)) return;
       },
+      // breakpoint: w
       $_BGEc: function () {
         var $_CFAFI = FAwFx.$_CQ,
           $_CFAEl = ["$_CFAIF"].concat($_CFAFI),
@@ -9799,12 +9780,16 @@ function FAwFx() {}
         var t = this,
           n = t["$_EFF"];
         if (!n["gt"] || !n["challenge"]) return V(H("config_lack", t));
+        // Re.prototype."$_BHDt"
         var e = t["$_BJAv"]["$_BHDt"]();
+        // t["$_EGi"]
         (t["$_CCET"] = e),
           (t["$_EGi"]["cc"] = n["cc"]),
           (t["$_EGi"]["ww"] = n["supportWorker"]),
           (t["$_EGi"]["i"] = e);
         var r = t["$_CCFP"](),
+          // encrypt1: crypto-js 库加密
+          // he["stringify"]: JSON.stringify
           o = $_BDg()["encrypt1"](he["stringify"](t["$_EGi"]), t["$_CCGs"]()),
           i = p["$_HBh"](o),
           s = {
@@ -10023,6 +10008,7 @@ function FAwFx() {}
           (n["lang"] = e["lang"] || "zh-cn"),
           (n["pt"] = t["$_BJEV"]),
           (n["client_type"] = t["$_BJFL"]),
+          // breakpoint: w2
           (n["w"] = t["$_CECf"]),
           N(t["$_EFF"], p["$_HDX"]("fEkexGxOwUyY"), n)["$_FB_"](
             function (e) {
@@ -10102,6 +10088,7 @@ function FAwFx() {}
           c < a["length"];
           c++
         )
+        // "lang":"zh-cn", 
           i["$_CEEm"] += '"' + a[c][0] + '":' + he["stringify"](a[c][1]) + ",";
         var _ = $_BDg();
         (i["$_CEGn"] = (function l() {
@@ -10153,6 +10140,7 @@ function FAwFx() {}
                   n(o["toString"]() + n(n["toString"]()) + n(e["toString"]())) +
                   '"}');
             })(t["shift"](), new Date()),
+            // breakpoint: w2
               (i["$_CECf"] = p["$_HBh"](_["encrypt"](r, i["$_CCGs"]())));
           };
         })()),
@@ -10362,6 +10350,8 @@ function FAwFx() {}
           e
         );
       },
+      // breakpoint:
+      // ie(): 生成 aeskey
       $_CCGs: function (e) {
         var $_CHCAT = FAwFx.$_CQ,
           $_CHBJW = ["$_CHCDW"].concat($_CHCAT),
@@ -10373,6 +10363,7 @@ function FAwFx() {}
           this["$_EFF"]["aeskey"]
         );
       },
+      // X(): 从类字段判断为流传较广的 rsa 加密库 http://www-cs-students.stanford.edu/~tjw/jsbn/rsa.js
       $_CCFP: function (e) {
         var $_CHCFP = FAwFx.$_CQ,
           $_CHCEw = ["$_CHCIc"].concat($_CHCFP),
